@@ -28,15 +28,20 @@ function shuffle(array) {
     return array;
 }
 
-const game = document.querySelector('.deck');
-game.addEventListener('click', function(e) {
-  if (e.target.nodeName === 'li');
-   console.log(e);
-/*}
-cards.addEventListener('click', function(e) {
-  console.log("I'm clicked!");*/
-});
 
+
+  const cards = document.querySelectorAll('.card');
+  cards.forEach(function(card) {
+    card.addEventListener('click', function(e){
+      card.classList.add('open', 'show');
+    });
+  });
+/*const cards = document.querySelectorAll('.card');
+function flip(card) {
+    cards.forEach (function(card) {
+    card.classList.add(open, show);
+    });
+  };*/
 /*
  * set up the event listener for a card. If a card is clicked:
 
