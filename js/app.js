@@ -29,11 +29,17 @@ function shuffle(array) {
 }
 
 
-
+  let openCards = []
   const cards = document.querySelectorAll('.card');
   cards.forEach(function(card) {
     card.addEventListener('click', function(e){
       card.classList.add('open', 'show');
+      openCards.push(card);
+      console.log('openCards:', openCards.length);
+
+      /*if (openCards.length === 2) {
+
+      }*/
     });
   });
 /*const cards = document.querySelectorAll('.card');
