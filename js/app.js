@@ -1,11 +1,26 @@
 /*
  * Create a list that holds all of your cards
  */
- /*cards = [
-
- ]*/
-
-
+ cards = ['fa-paper-plane-o', 'fa-paper-plane-o',
+          'fa-diamond', 'fa-diamond',
+          'fa-anchor', 'fa-anchor',
+          'fa-bolt', 'fa-bolt',
+          'fa-cube', 'fa-cube',
+          'fa-leaf', 'fa-leaf',
+          'fa-bicycle', 'fa-bicycle',
+          'fa-bomb', 'fa-bomb'
+ ]
+function generateCard(card) {
+  return `<li class="card"><i class="fa ${card}"></i></li>`
+};
+function initGame() {
+  const deck = document.querySelector('.deck');
+  const cardHTML = cards.map(function(card) {
+    return generateCard(card);
+  });
+  deck.innerHTML = cardHTML.join('');
+}
+initGame();
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -28,18 +43,24 @@ function shuffle(array) {
     return array;
 }
 
-
   let openCards = []
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(function(card) {
+  const allCards = document.querySelectorAll('.card');
+  allCards.forEach(function(card) {
     card.addEventListener('click', function(e){
+      
       card.classList.add('open', 'show');
       openCards.push(card);
       console.log('openCards:', openCards.length);
-
-      /*if (openCards.length === 2) {
-
-      }*/
+      
+     if (openCards.length == 2) {
+        
+          openCards.forEach(function(card){
+            setTimeout(function(card){
+          });
+        }, 1000);
+        card.classList.remove('open', 'show');
+        openCards = []
+      }
     });
   });
 /*const cards = document.querySelectorAll('.card');
