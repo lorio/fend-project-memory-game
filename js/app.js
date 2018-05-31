@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
- cards = ['fa-paper-plane-o', 'fa-paper-plane-o',
+const allCards = ['fa-paper-plane-o', 'fa-paper-plane-o',
           'fa-diamond', 'fa-diamond',
           'fa-anchor', 'fa-anchor',
           'fa-bolt', 'fa-bolt',
@@ -11,23 +11,8 @@
           'fa-bomb', 'fa-bomb'
  ]
 function generateCard(card) {
-  return `<li class="card"><i class="fa ${card}"></i></li>`
+  return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`
 };
-function initGame() {
-  const deck = document.querySelector('.deck');
-  const cardHTML = cards.map(function(card) {
-    return generateCard(card);
-  });
-  deck.innerHTML = cardHTML.join('');
-}
-initGame();
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -42,27 +27,54 @@ function shuffle(array) {
 
     return array;
 }
+//to start //////////////////////
+function initGame() {
+  const deck = document.querySelector('.deck');
+// loop through each card and create its HTML ///////
+  const cardHTML = shuffle(allCards).map(function(card) {
+    return generateCard(card);
+    // Display the cards on the page
+// add each card's HTML to the page ////////////////
+    deck.innerHTML = cardHTML.join('');
+  });  
+};
+// create an empty list of open cards
+let openCards = [];
 
-  let openCards = []
-  const allCards = document.querySelectorAll('.card');
+//start game ///////////////////////////////////
+initGame();  
   allCards.forEach(function(card) {
-    card.addEventListener('click', function(e){
-      
-      card.classList.add('open', 'show');
-      openCards.push(card);
-      console.log('openCards:', openCards.length);
-      
-     if (openCards.length == 2) {
-        
-          openCards.forEach(function(card){
-            setTimeout(function(card){
-          });
-        }, 1000);
-        card.classList.remove('open', 'show');
-        openCards = []
+    card.addEventListener('click', function(e) {
+      /*if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {*/
+        card.classList.add('open', 'show');
+        openCards.push(card);
+/*if match*/
+      if (openCards.length == 2) {
+        if (openCards[0].dataset.card == openCards[1].dataset.card) {
+          openCards[0].classList.add('match');
+          openCards[0].classList.add('open');
+          openCards[0].classList.add('show');
+          openCards[1].classList.add('match');
+          openCards[1].classList.add('open');
+          openCards[1].classList.add('show');
+          openCards = []
+          } else {
+/*if no match*/
+          setTimeout(function(card) {
+            openCards.forEach(function(card){
+              card.classList.remove('open', 'show');
+            });
+            openCards = [];  
+          }, 1000);        
+        }
+       /* moves += 1;
+        moveCounter.innerText = moves;*/
       }
-    });
+
   });
+});
+
+
 /*const cards = document.querySelectorAll('.card');
 function flip(card) {
     cards.forEach (function(card) {
