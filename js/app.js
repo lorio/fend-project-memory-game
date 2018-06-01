@@ -1,49 +1,46 @@
 /*
  * Create a list that holds all of your cards
  */
-const allCards = ['fa-paper-plane-o', 'fa-paper-plane-o',
+let cardArr = ['fa-paper-plane-o', 'fa-paper-plane-o',
           'fa-diamond', 'fa-diamond',
           'fa-anchor', 'fa-anchor',
           'fa-bolt', 'fa-bolt',
           'fa-cube', 'fa-cube',
           'fa-leaf', 'fa-leaf',
           'fa-bicycle', 'fa-bicycle',
-          'fa-bomb', 'fa-bomb'
- ]
-function generateCard(card) {
-  return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`
-};
+          'fa-bomb', 'fa-bomb',
+ ];
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+function shuffle(cardArr) {
+    var currentIndex = cardArr.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        temporaryValue = cardArr[currentIndex];
+        cardArr[currentIndex] = cardArr[randomIndex];
+        cardArr[randomIndex] = temporaryValue;
     }
 
-    return array;
+    return cardArr;
 }
 //to start //////////////////////
 function initGame() {
   const deck = document.querySelector('.deck');
+  let card = document.querySelectorAll('.card');
 // loop through each card and create its HTML ///////
-  const cardHTML = shuffle(allCards).map(function(card) {
-    return generateCard(card);
-    // Display the cards on the page
+  let cardHTML = cardArr.map(function generateCard(card) {
+    return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
+  });  // Display the cards on the page
 // add each card's HTML to the page ////////////////
-    deck.innerHTML = cardHTML.join('');
-  });  
-};
+    deck.innerHTML = cardHTML.join('');    
+}
 // create an empty list of open cards
 let openCards = [];
 
 //start game ///////////////////////////////////
 initGame();  
-  allCards.forEach(function(card) {
+  cardArr.forEach(function(card) {
     card.addEventListener('click', function(e) {
       /*if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {*/
         card.classList.add('open', 'show');
