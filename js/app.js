@@ -27,7 +27,7 @@ function shuffle(cardArr) {
 //to start //////////////////////
 function initGame() {
   const deck = document.querySelector('.deck');
-  let card = document.querySelectorAll('.card');
+  
 // loop through each card and create its HTML ///////
   let cardHTML = cardArr.map(function generateCard(card) {
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
@@ -39,12 +39,22 @@ function initGame() {
 let openCards = [];
 
 //start game ///////////////////////////////////
+const deck = document.querySelector('.deck');
+const card = document.querySelectorAll('.card');
 initGame();  
-  cardArr.forEach(function(card) {
-    card.addEventListener('click', function(e) {
+  function flip(e) {
+    e.target.classList.toggle('open');
+    e.target.classList.toggle('show');
+    openCards.push(card);
+  }  
+
+    deck.addEventListener('click', flip);
       /*if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {*/
-        card.classList.add('open', 'show');
-        openCards.push(card);
+  
+/*        
+      };
+    });
+});  */  
 /*if match*/
       if (openCards.length == 2) {
         if (openCards[0].dataset.card == openCards[1].dataset.card) {
@@ -68,8 +78,7 @@ initGame();
         moveCounter.innerText = moves;*/
       }
 
-  });
-});
+
 
 
 /*const cards = document.querySelectorAll('.card');
